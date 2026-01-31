@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 // import { ScatterPlot } from '@mui/icons-material';
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#065F46",
+    backgroundColor: "#c2b38c",
     color: "white",
   },
   [`&.${tableCellClasses.body}`]: {
@@ -20,7 +20,7 @@ const StyledTableCell = styled(TableCell)(() => ({
 
 const StyledTableRow = styled(TableRow)(() => ({
   '&:hover': {
-    backgroundColor: "#065F46",
+    backgroundColor: "#c2b38c",
     // Scale
     // border: 1,
     // color: "white"
@@ -162,7 +162,7 @@ const MM1 = () => {
             {/* Submit Button */}
             <div className="flex justify-center ">
               <button
-                className="w-[90%] md:w-[10vw] md:h-[4.4vw]  md:py-0 py-[3vw] mx-2 my-2 md:ml-7 rounded-md bg-emerald-800 text-white active:scale-95 hover:bg-emerald-600 text-md"
+                className="w-[90%] md:w-[10vw] md:h-[4.4vw]  md:py-0 py-[3vw] mx-2 my-2 md:ml-7 rounded-md bg-pink-800 text-white active:scale-95 hover:bg-gray-600 text-md"
                 onClick={Submit}
               >
                 Calculate
@@ -306,7 +306,7 @@ const MM1 = () => {
                     }
                 </div>
                 <div className='flex justify-center p-2'>
-                  <button className='px-5 py-4 rounded-md bg-[#065F46] text-white' onClick={()=>{goToChartPage()}}>Chart Analysis</button>
+                  <button className='px-5 py-4 rounded-md bg-pink-800 text-white' onClick={()=>{goToChartPage()}}>Chart Analysis</button>
                 </div>
             </>
 

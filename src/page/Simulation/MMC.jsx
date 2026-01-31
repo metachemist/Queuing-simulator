@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#065F46",
+    backgroundColor: "#c2b38c",
     color: "white",
   },
   [`&.${tableCellClasses.body}`]: {
@@ -19,7 +19,7 @@ const StyledTableCell = styled(TableCell)(() => ({
 
 const StyledTableRow = styled(TableRow)(() => ({
   '&:hover': {
-    backgroundColor: "#065F46"
+    backgroundColor: "#c2b38c"
   },
   // hide last border
   '&:last-child td, &:last-child th': {
@@ -265,7 +265,7 @@ const MMC = () => {
                               return (
                                 <React.Fragment key={index}>
                                   {/* Gantt Chart Task */}
-                                  <div className="md:w-20 w-[23vw] h-16 rounded-sm text-center relative border border-1 py-3 px-2 my-2 border-[#065F46]">
+                                  <div className="md:w-20 w-[23vw] h-16 rounded-sm text-center relative border border-1 py-3 px-2 my-2 border-[#c2b38c]">
                                     <p className="text-center font-semibold">P{item?.customer_Id + 1}</p>
                                     <p className="absolute bottom-1 left-1">{item?.start_Time}</p>
                                     <p className="absolute bottom-1 right-1">{item?.end_Time}</p>
@@ -273,8 +273,8 @@ const MMC = () => {
 
                                   {/* Idle Time (if any) */}
                                   {idleTime > 0 && (
-                                    <div className="md:w-20 w-[23vw] h-16 rounded-sm text-center flex items-center justify-center relative border border-dashed py-3 px-2 my-2 bg-[#065F46]">
-                                      <p className="text-white text-sm">Idle</p>
+                                    <div className="md:w-20 w-[23vw] h-16 rounded-sm text-center flex items-center justify-center relative border border-dashed py-3 px-2 my-2 bg-[#c2b38c]">
+                                      <p className="text-gray-800 text-sm">Idle</p>
                                     </div>
                                   )}
                                 </React.Fragment>
@@ -343,10 +343,9 @@ const MMC = () => {
                     }
                 </div>
                 <div className='flex justify-center p-2'>
-                  <button className='px-5 py-4 rounded-md bg-[#065F46] text-white' onClick={()=>{goToChartPage()}}>Chart Analysis</button>
+                  <button className='px-5 py-4 rounded-md bg-pink-800 text-white' onClick={()=>{goToChartPage()}}>Chart Analysis</button>
                 </div>
             </>
-
             : null
         }
       </Box>

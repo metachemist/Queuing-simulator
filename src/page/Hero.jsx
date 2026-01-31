@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react'
 import heroImage from '/HeroImage.jpeg'
 import hero from '/queue2.jpg'
-import hero1 from '/queue1.jpg'
-import hero2 from '/queue2.jpg'
-import hero3 from '/queue3.jpg'
-import hero4 from '/queue4.jpg'
+// import hero1 from '/queue1.jpg'
+// import hero2 from '/queue2.jpg'
+// import hero3 from '/queue3.jpg'
+// import hero4 from '/queue4.jpg'
 
 import "../App.css";
 import Typed from 'typed.js';
@@ -32,7 +32,7 @@ const Hero = () => {
         <div className='w-[100%] h-[100%] flex flex-wrap'>
           <div className='md:w-[50%] w-full  px-[2vw] py-[4vw]'>
             <h1 className='md:text-4xl text-2xl md:text-left  text-center  font-extrabold pb-6'>Objective</h1>
-            <p className='md:text-xl font-mono'>The objective of this Operation Research project is to analyze and optimize a queueing system to improve operational efficiency and enhance customer satisfaction. Queueing systems are prevalent in various domains, including retail, healthcare, transportation, and telecommunications. By studying the underlying principles of queueing theory and applying mathematical models, this project aims to identify bottlenecks, reduce waiting times, and enhance resource allocation within the system.</p>
+            <p className='md:text-xl font-mono'>We were assigned this operational research project by Miss Shaista Rais to study a queuing system and find ways to make it better. We took data from Dar-ul-Sehat hospital that contained more than 100+ readings of patients. By using basic concepts of queueing theory and simple mathematical models, this project helps identify problem areas, reduce customer waiting time and use available resources more efficiently.</p>
           </div>
           <div className='md:w-[50%] w-full px-[1vw] py-[2vw] '>
             {/* <div className='w-full flex flex-wrap justify-around py'>

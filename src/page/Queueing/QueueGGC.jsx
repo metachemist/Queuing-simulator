@@ -54,7 +54,7 @@ else{
 }
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#065F46",
+    backgroundColor: "#c2b38c",
     color: "white",
   },
   [`&.${tableCellClasses.body}`]: {
@@ -64,7 +64,7 @@ const StyledTableCell = styled(TableCell)(() => ({
 
 const StyledTableRow = styled(TableRow)(() => ({
   '&:hover': {
-    backgroundColor: "#065F46",
+    backgroundColor: "#c2b38c",
   },
   '&:last-child td, &:last-child th': {
     border: 0,
@@ -91,7 +91,7 @@ const QueueGGC = () => {
         })
     }
   return (
-    <div className='  w-full h-screen'>
+    <div className='w-full h-screen'>
         <div className='flex flex-col md:flex-row justify-center items-center md:justify-around'>
             <Box
                 component="form"
@@ -285,7 +285,7 @@ const QueueGGC = () => {
                   }}
                   onChange={(e) => handleSubmit("Servers", e.target.value)}
                 />
-                <button className='md:w-[10vw] w-[92%] md:h-[4.4vw] py-4 px-2 md:ml-7 mx-[2vw] my-[1vw] rounded-md bg-emerald-800 text-white active:scale-95 hover:bg-emerald-600 text-md' onClick={Submit}>Calculate</button>
+                <button className='md:w-[10vw] w-[92%] md:h-[4.4vw] py-4 px-2 md:ml-7 mx-[2vw] my-[1vw] rounded-md bg-pink-800 text-white active:scale-95 hover:bg-gray-600 text-md' onClick={Submit}>Calculate</button>
             </Box>
         </div>
         <Box className="px-3 py-[10vw]">  
@@ -295,8 +295,8 @@ const QueueGGC = () => {
           :
           (Object.keys(data).length === 1) ?
            <div className='flex items-center justify-center'>
-            <div className='border-1 border p-2 rounded-lg border-emerald-200'>
-            <h1 className='text-center font-mono font-bold text-xl text-emerald-950'>{`Rho (${data.rho}) is greater than 1. It's not a model.`}</h1>
+            <div className='border-1 border p-2 rounded-lg border-pink-200'>
+            <h1 className='text-center font-mono font-bold text-xl text-pink-950'>{`Rho (${data.rho}) is greater than 1. It's not a model.`}</h1>
 
             </div>
            </div>

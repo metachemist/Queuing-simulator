@@ -1,17 +1,17 @@
-import React from 'react'
-import { Link, Outlet } from 'react-router-dom'
-
 const Queueing = () => {
   return (
-    <div>
-      <div className='flex justify-center border-b-2 md:h-full h-12 '>
-        <Link to="mmcModel"><h1 className='md:text-2xl text-xl text-pink-900 font-bold text-center p-2 md:px-[1vw] md:pt-[1vw] md:pb-[1vw] hover:underline cursor-pointer active:scale-95'>M/M/C</h1></Link>
-        <Link to="mgcModel"><h1 className='md:text-2xl text-xl text-pink-900 font-bold text-center p-2 md:px-[1vw] md:pt-[1vw] md:pb-[1vw] hover:underline cursor-pointer active:scale-95'>M/G/C</h1></Link>
-        <Link to="ggcModel"><h1 className='md:text-2xl text-xl text-pink-900 font-bold text-center p-2 md:px-[1vw] md:pt-[1vw] md:pb-[1vw] hover:underline cursor-pointer active:scale-95'>G/G/C</h1></Link>
+    // This wrapper ensures the background covers the entire viewport
+    <div className='min-h-screen bg-cream w-full'>
+      <div className='flex justify-center space-x-10 p-4'>
+        <Link to="mmcModel"><h1 className='md:text-2xl text-xl text-pink-900 font-bold hover:underline cursor-pointer active:scale-95'>M/M/C</h1></Link>
+        <Link to="mgcModel"><h1 className='md:text-2xl text-xl text-pink-900 font-bold hover:underline cursor-pointer active:scale-95'>M/G/C</h1></Link>
+        <Link to="ggcModel"><h1 className='md:text-2xl text-xl text-pink-900 font-bold hover:underline cursor-pointer active:scale-95'>G/G/C</h1></Link>
       </div>
-      <Outlet/>
+      
+      {/* The Outlet content will now also reside within the bg-cream container */}
+      <div className="p-4">
+        <Outlet/>
+      </div>
     </div>
   )
 }
-
-export default Queueing
