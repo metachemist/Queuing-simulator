@@ -197,7 +197,7 @@ const MMC = () => {
                     </MenuItem>
                   ))}
                </TextField>
-                <button className='md:w-[10vw] w-full md:h-[4.4vw] py-4 px-2 md:ml-7 md:mx-[2vw] md:my-[1vw] rounded-md bg-emerald-800 text-white active:scale-95 hover:bg-emerald-600 text-md' onClick={Submit}>Calculate</button>
+                <button className='md:w-[10vw] w-full md:h-[4.4vw] py-4 px-2 md:ml-7 md:mx-[2vw] md:my-[1vw] rounded-md bg-gray-800 text-white active:scale-95 hover:bg-pink-600 text-md' onClick={Submit}>Calculate</button>
             </Box>
         </div>
         <Box className="mx-3">

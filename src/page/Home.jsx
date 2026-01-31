@@ -18,7 +18,6 @@ setTimeout(()=>{
         
         <div className='w-full '>
             <Hero/>
-            <Testtimols/>
             <Footer/>
         </div>
       }

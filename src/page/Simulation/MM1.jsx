@@ -239,7 +239,7 @@ const MM1 = () => {
                         return (
                           <React.Fragment key={index}>
                             {/* Gantt Chart Task */}
-                            <div className="md:w-20 w-[23vw] h-16 rounded-sm text-center relative border border-1 py-3 px-2 my-2  border-[#065F46] ">
+                            <div className="md:w-20 w-[23vw] h-16 rounded-sm text-center relative border border-1 py-3 px-2 my-2  border-pink-800 ">
                               <p className="text-center font-semibold">P{item?.customer_Id+1}</p>
                               <p className="absolute bottom-1 left-1">{item?.start_Time}</p>
                               <p className="absolute bottom-1 right-1">{item?.end_Time}</p>
