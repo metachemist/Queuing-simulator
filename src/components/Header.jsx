@@ -90,7 +90,7 @@ const Header = () => {
       <div className='hidden md:flex gap-3'>
         <div className="relative group">
           <Link to="/Simulation">
-            <button className='md:w-fit md:h-[3vw] mr:4 px-2 md:mr-2 rounded-md bg-pink-800 text-white active:scale-95 hover:bg-pink-700 text-md transition-colors'>
+            <button className='md:w-fit md:h-[3vw] mr:4 px-2 md:mr-2 rounded-md bg-pink-900 text-white active:scale-95 hover:bg-pink-700 text-md transition-colors'>
               Simulation
             </button>
           </Link>
@@ -104,7 +104,7 @@ const Header = () => {
 
         <div className="relative group">
           <Link to="/Queueing">
-            <button className='md:w-fit md:h-[3vw] px-2 rounded-md bg-pink-800 text-white active:scale-95 hover:bg-pink-700 text-md transition-colors'>
+            <button className='md:w-fit md:h-[3vw] px-2 rounded-md bg-pink-900 text-white active:scale-95 hover:bg-pink-700 text-md transition-colors'>
               Queuing Models
             </button>
           </Link>
@@ -126,13 +126,13 @@ const Header = () => {
       {isMenuOpen && (
         <div className='absolute w-full top-full right-0 bg-white shadow-lg border rounded-md flex flex-col p-3 gap-3 z-50'>
           <Link to="/Simulation" onClick={() => setIsMenuOpen(false)}>
-            <button className='w-full h-fit px-2 py-2 rounded-md bg-pink-800 text-white active:scale-95 hover:bg-pink-700 text-md transition-colors'>
+            <button className='w-full h-fit px-2 py-2 rounded-md bg-pink-900 text-white active:scale-95 hover:bg-pink-700 text-md transition-colors'>
               Simulation
             </button>
           </Link>
 
           <Link to="/Queueing" onClick={() => setIsMenuOpen(false)}>
-            <button className='w-full h-fit px-2 py-2 rounded-md bg-pink-800 text-white active:scale-95 hover:bg-pink-700 text-md transition-colors'>
+            <button className='w-full h-fit px-2 py-2 rounded-md bg-pink-900 text-white active:scale-95 hover:bg-pink-700 text-md transition-colors'>
               Queuing Models
             </button>
           </Link>

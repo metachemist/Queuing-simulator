@@ -72,9 +72,9 @@ const QueueForm = ({ fields, onSubmit, submitButtonText = "Submit", isLoading = 
           size="large"
           disabled={isLoading}
           sx={{
-            backgroundColor: '#c2410c',
+            backgroundColor: '#881337',
             '&:hover': {
-              backgroundColor: '#9a3412',
+              backgroundColor: '#111827',
             },
           }}
         >
@@ -84,7 +84,7 @@ const QueueForm = ({ fields, onSubmit, submitButtonText = "Submit", isLoading = 
         <Button
           type="button"
           variant="outlined"
-          color="secondary"
+          color= "#111827"
           size="large"
           onClick={handleClearForm}
           disabled={isLoading}

@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { BarChart } from '@mui/x-charts';
 
 const Graphs = () => {
-  const colors = ['#006BD6', 'pink'];
+  const colors = ["#831843", "#d1d5db"];
   const location = useLocation();
   const chart = location.state;
 
@@ -38,7 +38,7 @@ const Graphs = () => {
   }, []);
 
   return (
-    <div className="flex flex-wrap justify-center items-center gap-4 p-4">
+    <div className="flex flex-wrap justify-center items-center bg-cream gap-4 p-4">
       <div className="border border-black rounded-md p-2 w-full md:w-[48%] overflow-x-auto md:overflow-hidden">
         <h1 className="text-center font-bold mb-4">Scatter Plot</h1>
         <div style={{ minWidth: dimensions.width }}>
@@ -49,12 +49,12 @@ const Graphs = () => {
               {
                 label: 'Arrival Time',
                 data: scatterPlotArrival.map((v) => ({ x: v.x, y: v.y, id: v.id })),
-                color: colors[0],
+                color: colors[1],
               },
               {
                 label: 'Service Time',
                 data: scatterPlotService.map((v) => ({ x: v.x, y: v.y, id: v.id })),
-                color: colors[1],
+                color: colors[0],
               },
             ]}
           />
@@ -82,7 +82,7 @@ const Graphs = () => {
                   data: item.data,
                 },
               ]}
-              series={[{ data: item.data }]}
+              series={[{ data: item.data, color: colors[index % colors.length] }]}
               width={dimensions.width} 
               height={dimensions.height}
             />

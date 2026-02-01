@@ -54,7 +54,7 @@ else{
 }
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#c2b38c",
+    backgroundColor: "#831843",
     color: "white",
   },
   [`&.${tableCellClasses.body}`]: {
@@ -64,7 +64,7 @@ const StyledTableCell = styled(TableCell)(() => ({
 
 const StyledTableRow = styled(TableRow)(() => ({
   '&:hover': {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#c2b38c",
   },
   '&:last-child td, &:last-child th': {
     border: 0,
@@ -157,37 +157,37 @@ const QueueGGC = () => {
           (Object.keys(data).length === 1) ?
            <div className='flex items-center justify-center'>
             <div className='border-1 border p-2 rounded-lg border-pink-200 max-w-md mx-auto'>
-            <h1 className='text-center font-mono font-bold text-xl text-pink-950'>{`Rho (${data.rho}) is greater than 1. It's not a stable model.`}</h1>
+            <h1 className='text-center font-mono font-bold text-xl text-pink-900'>{`Rho (${data.rho}) is greater than 1. It's not a stable model.`}</h1>
             </div>
            </div>
           :
             <>
               {/* Performance Insights */}
-              <div className="bg-blue-50 p-4 rounded-lg mb-4 max-w-6xl mx-auto">
-                <h3 className="font-semibold text-blue-800 mb-2">Performance Insights</h3>
+              <div className="bg-gray-200 p-4 rounded-lg mb-4 max-w-6xl mx-auto">
+                <h3 className="font-semibold text-pink-900 mb-2">Performance Insights</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
                   <div>
-                    <span className="text-blue-700">Utilization: </span>
+                    <span className="text-pink-900">Utilization: </span>
                     <span className="font-medium">{data.rho}</span>
                   </div>
                   <div>
-                    <span className="text-blue-700">Wait Time in Queue: </span>
+                    <span className="text-pink-900">Wait Time in Queue: </span>
                     <span className="font-medium">{data.Wq}</span>
                   </div>
                   <div>
-                    <span className="text-blue-700">Wait Time in System: </span>
+                    <span className="text-pink-900">Wait Time in System: </span>
                     <span className="font-medium">{data.Ws}</span>
                   </div>
                   <div>
-                    <span className="text-blue-700">Length in Queue: </span>
+                    <span className="text-pink-900">Length in Queue: </span>
                     <span className="font-medium">{data.Lq}</span>
                   </div>
                   <div>
-                    <span className="text-blue-700">Length in System: </span>
+                    <span className="text-pink-900">Length in System: </span>
                     <span className="font-medium">{data.Ls}</span>
                   </div>
                   <div>
-                    <span className="text-blue-700">Idle Time: </span>
+                    <span className="text-pink-900">Idle Time: </span>
                     <span className="font-medium">{data.idle}</span>
                   </div>
                 </div>
@@ -198,17 +198,17 @@ const QueueGGC = () => {
                 <div className="flex justify-between items-center mb-1">
                   <span className="text-sm font-medium">Server Utilization: {Number((data.rho * 100).toFixed(2))}%</span>
                   <span className={`text-sm ${
-                    data.rho > 0.8 ? 'text-red-600' :
-                    data.rho > 0.6 ? 'text-yellow-600' : 'text-green-600'
+                    data.rho > 0.8 ? 'text-pink-900' :
+                    data.rho > 0.6 ? 'text-pink-900' : 'text-gray-900'
                   }`}>
                     {data.rho > 0.8 ? 'High' : data.rho > 0.6 ? 'Medium' : 'Low'}
                   </span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                <div className="w-full bg-gray-300 rounded-full h-2.5">
                   <div
                     className={`h-2.5 rounded-full ${
-                      data.rho > 0.8 ? 'bg-red-600' :
-                      data.rho > 0.6 ? 'bg-yellow-500' : 'bg-green-500'
+                      data.rho > 0.8 ? 'bg-pink-900' :
+                      data.rho > 0.6 ? 'bg-pink-900' : 'bg-gray-900'
                     }`}
                     style={{ width: `${Math.min(Number((data.rho * 100).toFixed(2)), 100)}%` }}
                   ></div>
@@ -249,7 +249,7 @@ const QueueGGC = () => {
 
               {/* Results Table - Mobile Card Layout */}
               <div className="md:hidden space-y-3 max-w-6xl mx-auto">
-                <div className="border rounded-lg p-3 bg-white">
+                <div className="border rounded-lg p-3 bg-gray-300">
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     <span className="font-medium">Utilization:</span><span>{data.rho}</span>
                     <span className="font-medium">Wait Time Q:</span><span>{data.Wq}</span>

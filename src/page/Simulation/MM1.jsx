@@ -9,7 +9,7 @@ import QueueForm from '../../components/QueueForm';
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#c2b38c",
+    backgroundColor: "#831843",
     color: "white",
   },
   [`&.${tableCellClasses.body}`]: {
@@ -19,7 +19,7 @@ const StyledTableCell = styled(TableCell)(() => ({
 
 const StyledTableRow = styled(TableRow)(() => ({
   '&:hover': {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#c2b38c",
   },
   '&:last-child td, &:last-child th': {
     border: 0,
@@ -106,22 +106,22 @@ const MM1 = () => {
           data?.table ? (
             <>
               {/* Performance Insights */}
-              <div className="bg-blue-50 p-4 rounded-lg mb-4 max-w-6xl mx-auto">
-                <h3 className="font-semibold text-blue-800 mb-2">Performance Insights</h3>
+              <div className="bg-gray-200 p-4 rounded-lg mb-4 max-w-6xl mx-auto">
+                <h3 className="font-semibold text-pink-900 mb-2">Performance Insights</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                   <div>
-                    <span className="text-blue-700">Avg Wait Time: </span>
+                    <span className="text-pink-900">Avg Wait Time: </span>
                     <span className="font-medium">{data?.avgValues?.avgWT || 0}</span>
                   </div>
                   <div>
-                    <span className="text-blue-700">Avg TAT: </span>
+                    <span className="text-pink-900">Avg TAT: </span>
                     <span className="font-medium">{data?.avgValues?.avgTAT || 0}</span>
                   </div>
                   <div>
-                    <span className="text-blue-700">System Utilization: </span>
+                    <span className="text-pink-900">System Utilization: </span>
                     <span className={`font-medium ${
-                      data.serverUtilization > 80 ? 'text-red-600' :
-                      data.serverUtilization > 60 ? 'text-yellow-600' : 'text-green-600'
+                      data.serverUtilization > 80 ? 'text-pink-900' :
+                      data.serverUtilization > 60 ? 'text-pink-900' : 'text-gray-900'
                     }`}>
                       {data.serverUtilization}%
                     </span>
@@ -134,8 +134,8 @@ const MM1 = () => {
                 <div className="flex justify-between items-center mb-1">
                   <span className="text-sm font-medium">Server Utilization: {data.serverUtilization}%</span>
                   <span className={`text-sm ${
-                    data.serverUtilization > 80 ? 'text-red-600' :
-                    data.serverUtilization > 60 ? 'text-yellow-600' : 'text-green-600'
+                    data.serverUtilization > 80 ? 'text-pink-900' :
+                    data.serverUtilization > 60 ? 'text-pink-900' : 'text-gray-900'
                   }`}>
                     {data.serverUtilization > 80 ? 'High' : data.serverUtilization > 60 ? 'Medium' : 'Low'}
                   </span>
@@ -143,8 +143,8 @@ const MM1 = () => {
                 <div className="w-full bg-gray-200 rounded-full h-2.5">
                   <div
                     className={`h-2.5 rounded-full ${
-                      data.serverUtilization > 80 ? 'bg-red-600' :
-                      data.serverUtilization > 60 ? 'bg-yellow-500' : 'bg-green-500'
+                      data.serverUtilization > 80 ? 'bg-pink-900' :
+                      data.serverUtilization > 60 ? 'bg-pink-900' : 'bg-gray-900'
                     }`}
                     style={{ width: `${Math.min(data.serverUtilization, 100)}%` }}
                   ></div>
@@ -245,7 +245,7 @@ const MM1 = () => {
 
                             {/* Idle Time (if any) */}
                             {idleTime > 0 && (
-                              <div className="md:w-20 w-[23vw] h-16 rounded-sm text-center  flex items-center justify-center relative border border-dashed py-3 px-2 bg-[#065F46] text-white">
+                              <div className="md:w-20 w-[23vw] h-16 rounded-sm text-center  flex items-center justify-center relative border border-dashed py-3 px-2 bg-[#831843] text-white">
                                 <p className="text-sm">Idle</p>
                               </div>
                               )}
@@ -295,7 +295,7 @@ const MM1 = () => {
 
               <div className='flex justify-center p-2'>
                 <button
-                  className='px-5 py-4 rounded-md bg-pink-800 text-white hover:bg-pink-700 transition-colors'
+                  className='px-5 py-4 rounded-md bg-pink-900 text-white hover:bg-gray-900 transition-colors'
                   onClick={goToChartPage}
                 >
                   Chart Analysis
