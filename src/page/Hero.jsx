@@ -32,7 +32,7 @@ const Hero = () => {
         <div className='w-[100%] h-[100%] flex flex-wrap'>
           <div className='md:w-[50%] w-full  px-[2vw] py-[4vw]'>
             <h1 className='md:text-4xl text-2xl md:text-left  text-center  font-extrabold pb-6'>Objective</h1>
-            <p className='md:text-xl font-mono'>We were assigned this operational research project by Miss Shaista Rais to study a queuing system and find ways to make it better. We took data from Dar-ul-Sehat hospital that contained more than 100+ readings of patients. By using basic concepts of queueing theory and simple mathematical models, this project helps identify problem areas, reduce customer waiting time and use available resources more efficiently.</p>
+            <p className='md:text-xl font-mono'>Explore and analyze queueing systems using advanced mathematical models and simulation techniques. This comprehensive queueing simulator implements fundamental queueing theory concepts including M/M/1, M/M/C, M/G/C, and G/G/C models to optimize service systems, reduce customer waiting times, and improve resource utilization. Perfect for educational purposes, operations research, business analysis, and industry applications across retail, healthcare, transportation, and telecommunications sectors.</p>
           </div>
           <div className='md:w-[50%] w-full px-[1vw] py-[2vw] '>
             {/* <div className='w-full flex flex-wrap justify-around py'>

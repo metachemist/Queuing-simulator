@@ -29,9 +29,10 @@ const Graphs = () => {
       setDimensions({
         width: Math.min(window.innerWidth * 0.9, 600),
         height: Math.min(window.innerHeight * 0.4, 500),
-      },[]);
+      });
     };
 
+    handleResize(); // Call immediately to set initial size
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);

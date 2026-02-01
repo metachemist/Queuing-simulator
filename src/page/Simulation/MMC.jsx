@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#c2b38c",
+    backgroundColor: "#831843",
     color: "white",
   },
   [`&.${tableCellClasses.body}`]: {
@@ -59,7 +59,7 @@ const MMC = () => {
       navigate('/Graphs', {state:data})
     }
   return (
-    <div className='  w-full h-screen'>
+    <div className='w-full h-screen'>
         <div className=' flex justify-around items-center py-[2vw] px-[3vw]  '>
             <Box
                 component="form"
@@ -197,7 +197,7 @@ const MMC = () => {
                     </MenuItem>
                   ))}
                </TextField>
-                <button className='md:w-[10vw] w-full md:h-[4.4vw] py-4 px-2 md:ml-7 md:mx-[2vw] md:my-[1vw] rounded-md bg-gray-800 text-white active:scale-95 hover:bg-pink-600 text-md' onClick={Submit}>Calculate</button>
+                <button className='md:w-[10vw] w-full md:h-[4.4vw] py-4 px-2 md:ml-7 md:mx-[2vw] md:my-[1vw] rounded-md bg-gray-800 text-white active:scale-95 hover:bg-pink-900 text-md' onClick={Submit}>Calculate</button>
             </Box>
         </div>
         <Box className="mx-3">
@@ -343,7 +343,7 @@ const MMC = () => {
                     }
                 </div>
                 <div className='flex justify-center p-2'>
-                  <button className='px-5 py-4 rounded-md bg-pink-800 text-white' onClick={()=>{goToChartPage()}}>Chart Analysis</button>
+                  <button className='px-5 py-4 rounded-md bg-pink-900 text-white' onClick={()=>{goToChartPage()}}>Chart Analysis</button>
                 </div>
             </>
             : null

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
-import { filledInputClasses } from '@mui/material/FilledInput';
-import { InputAdornment, inputBaseClasses, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
+import { Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
+// import QueueForm from '../../components/QueueForm';
 function factorial(n) { 
   if (n === 0) {
       return 1;
@@ -64,7 +64,7 @@ const StyledTableCell = styled(TableCell)(() => ({
 
 const StyledTableRow = styled(TableRow)(() => ({
   '&:hover': {
-    backgroundColor: "#c2b38c",
+    backgroundColor: "#f5f5f5",
   },
   '&:last-child td, &:last-child th': {
     border: 0,
@@ -72,265 +72,193 @@ const StyledTableRow = styled(TableRow)(() => ({
 }));
 
 const QueueGGC = () => {
-    const [formdata,setFormData] = useState({});
-    const [data,setData] = useState({});
-    
-    const handleSubmit = (field,val) => {
-        setFormData({...formdata,
-            [field]:val
-        })
+    const [data, setData] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSubmit = (formData) => {
+        setIsLoading(true);
+        try {
+            const { ArrivalTime, ServiceTime, ArrivalVariance, ServiceVariance, Servers } = formData;
+            const model = calculateGGC(ArrivalTime, ServiceTime, ArrivalVariance, ServiceVariance, Servers);
+            setData({
+              ...model
+            });
+        } catch (error) {
+            console.error('Calculation error:', error);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
-    
-    const Submit = (e) => {
-        e.preventDefault();
-        const {ArrivalTime,ServiceTime,ArrivalVariance,ServiceVariance,Servers} = formdata;
-        const model = calculateGGC(ArrivalTime,ServiceTime,ArrivalVariance,ServiceVariance,Servers);
-        setData({
-          ...model
-        })
+    const handleClear = () => {
+        setData({});
     }
-  return (
-    <div className='w-full h-screen'>
-        <div className='flex flex-col md:flex-row justify-center items-center md:justify-around'>
-            <Box
-                component="form"
-                noValidate
-                autoComplete="off"
-                className="w-full md:flex md:py-5 md:px-6"
-            >
-                <TextField
-                    // id="filled-suffix-shrink"
-                    label="Arrival Mean"
-                    variant="filled"
-                    onChange={(e)=>handleSubmit("ArrivalTime",e.target.value)}
-                    sx={{
-                      marginX: {md:"1vw" ,xs: '4vw'},
-                      width:{xs:"90%",md:'15%'},
-                      marginY: {md:"1vw" ,xs: '4vw'},
-                    }}
-                      slotProps={{
-                        input: {
-                          endAdornment: (
-                            <InputAdornment
-                            position="start"
-                            sx={{
-                              display: "flex",
-                              alignItems: "start",
-                              justifyContent: "end",
-                              opacity: 0,
-                              pointerEvents: "none",
-                              width: "fit-content",
-                              [`.${filledInputClasses.root} &`]: {
-                                margin: 0,
-                              },
-                              [`[data-shrink=true] ~ .${inputBaseClasses.root} > &`]: {
-                                opacity: 1,
-                              },
-                            }}
-                        >
-                            minute
-                        </InputAdornment>
-                        ),
-                    },
-                    }}
-                />
-                <TextField
-                    label="Service Mean"
-                    sx={{
-                      marginX: {md:"1vw" ,xs: '4vw'},
-                      width:{xs:"90%",md:'15%'},
-                      marginY: {md:"1vw" ,xs: '4vw'},
-                    }}
-                    variant="filled"
-                    onChange={(e)=>handleSubmit("ServiceTime",e.target.value)}
-                    slotProps={{
-                    input: {
-                        endAdornment: (
-                        <InputAdornment
-                        position="start"
-                        sx={{
-                          display: "flex",
-                          alignItems: "start",
-                          justifyContent: "end",
-                          opacity: 0,
-                          pointerEvents: "none",
-                          width: "fit-content",
-                          [`.${filledInputClasses.root} &`]: {
-                            margin: 0,
-                            // width:"1vw",
 
-                          },
-                          [`[data-shrink=true] ~ .${inputBaseClasses.root} > &`]: {
-                            opacity: 1,
-                            // width:"1vw",
-                          },
-                        }}
-                        >
-                            minute
-                        </InputAdornment>
-                        ),
-                    },
-                    }}
-                />
-                <TextField
-                    // id="filled-suffix-shrink"
-                    label="Arrival Variance"
-                    sx={{
-                      marginX: {md:"1vw" ,xs: '4vw'},
-                      width:{xs:"90%",md:'15%'},
-                      marginY: {md:"1vw" ,xs: '4vw'},
-                    }}
-                    variant="filled"
-                    onChange={(e)=>handleSubmit("ArrivalVariance",e.target.value)}
-                    slotProps={{
-                    input: {
-                        endAdornment: (
-                        <InputAdornment
-                            position="start"
-                            sx={{
-                              display: "flex",
-                              alignItems: "start",
-                              justifyContent: "end",
-                              opacity: 0,
-                              pointerEvents: "none",
-                              width: "fit-content",
-                              [`.${filledInputClasses.root} &`]: {
-                                margin: 0,
-                                // width:"1vw",
-    
-                              },
-                              [`[data-shrink=true] ~ .${inputBaseClasses.root} > &`]: {
-                                opacity: 1,
-                                // width:"1vw",
-                              },
-                            }}
-                        >
-                            minute
-                        </InputAdornment>
-                        ),
-                    },
-                    }}
-                />
-                <TextField
-                    // id="filled-suffix-shrink"
-                    label="Service Variance"
-                    variant="filled"
-                    onChange={(e)=>handleSubmit("ServiceVariance",e.target.value)}
-                    sx={{
-                      marginX: {md:"1vw" ,xs: '4vw'},
-                      width:{xs:"90%",md:'15%'},
-                      marginY: {md:"1vw" ,xs: '4vw'},
-                    }}
-                      slotProps={{
-                        input: {
-                          endAdornment: (
-                            <InputAdornment
-                            position="start"
-                            sx={{
-                              display: "flex",
-                              alignItems: "start",
-                              justifyContent: "end",
-                              opacity: 0,
-                              pointerEvents: "none",
-                              width: "fit-content",
-                              [`.${filledInputClasses.root} &`]: {
-                                margin: 0,
-                              },
-                              [`[data-shrink=true] ~ .${inputBaseClasses.root} > &`]: {
-                                opacity: 1,
-                              },
-                            }}
-                        >
-                            minute
-                        </InputAdornment>
-                        ),
-                    },
-                    }}
-                />
-                <TextField
-                  id="filled-suffix-shrink"
-                  label="Number of Server"
-                  variant="filled"
-                  sx={{
-                    marginX: {md:"1vw" ,xs: '4vw'},
-                    width:{xs:"90%",md:'15%'},
-                    marginY: {md:"1vw" ,xs: '4vw'},
-                  }}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment
-                        position="start"
-                        sx={{
-                          display: "flex",
-                          alignItems: "start",
-                          justifyContent: "end",
-                          opacity: 0,
-                          pointerEvents: "none",
-                          width: "fit-content",
-                          [`.${filledInputClasses.root} &`]: {
-                            margin: 0,
-                            // width:"1vw",
-
-                          },
-                          [`[data-shrink=true] ~ .${inputBaseClasses.root} > &`]: {
-                            opacity: 1,
-                            // width:"1vw",
-                          },
-                        }}
-                      >
-                        Number
-                      </InputAdornment>
-                    ),
-                  }}
-                  onChange={(e) => handleSubmit("Servers", e.target.value)}
-                />
-                <button className='md:w-[10vw] w-[92%] md:h-[4.4vw] py-4 px-2 md:ml-7 mx-[2vw] my-[1vw] rounded-md bg-pink-800 text-white active:scale-95 hover:bg-gray-600 text-md' onClick={Submit}>Calculate</button>
-            </Box>
-        </div>
-        <Box className="px-3 py-[10vw]">  
+    const formFields = [
         {
-          (Object.keys(data).length === 0)?
+            name: 'ArrivalTime',
+            label: 'Arrival Mean',
+            type: 'number',
+            required: true,
+            helperText: 'Mean arrival time',
+            unit: 'time units'
+        },
+        {
+            name: 'ServiceTime',
+            label: 'Service Mean',
+            type: 'number',
+            required: true,
+            helperText: 'Mean service time',
+            unit: 'time units'
+        },
+        {
+            name: 'ArrivalVariance',
+            label: 'Arrival Variance',
+            type: 'number',
+            required: true,
+            helperText: 'Variance of arrival times',
+            unit: 'time² units'
+        },
+        {
+            name: 'ServiceVariance',
+            label: 'Service Variance',
+            type: 'number',
+            required: true,
+            helperText: 'Variance of service times',
+            unit: 'time² units'
+        },
+        {
+            name: 'Servers',
+            label: 'Number of Servers (c)',
+            type: 'number',
+            required: true,
+            helperText: 'Total number of servers',
+            unit: 'servers'
+        }
+    ];
+
+  return (
+    <div className='w-full min-h-screen pb-20'>
+        <div className='w-full max-w-6xl mx-auto p-4'>
+            <QueueForm
+                fields={formFields}
+                onSubmit={handleSubmit}
+                submitButtonText="Calculate"
+                isLoading={isLoading}
+                onClear={handleClear}
+            />
+        </div>
+
+        <Box className="px-3 py-6">
+        {
+          (Object.keys(data).length === 0) ?
           null
           :
           (Object.keys(data).length === 1) ?
            <div className='flex items-center justify-center'>
-            <div className='border-1 border p-2 rounded-lg border-pink-200'>
-            <h1 className='text-center font-mono font-bold text-xl text-pink-950'>{`Rho (${data.rho}) is greater than 1. It's not a model.`}</h1>
-
+            <div className='border-1 border p-2 rounded-lg border-pink-200 max-w-md mx-auto'>
+            <h1 className='text-center font-mono font-bold text-xl text-pink-950'>{`Rho (${data.rho}) is greater than 1. It's not a stable model.`}</h1>
             </div>
            </div>
           :
             <>
-              <TableContainer component={Paper} sx={{
-                maxWidth: '1200px', margin: 'auto'
-              }}>
-                <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell align='center'>Utilization</StyledTableCell>
-                    <StyledTableCell align='center'>Wait Time In Queue(Wq)</StyledTableCell>
-                    <StyledTableCell align='center'>Wait Time In System(Ws)</StyledTableCell>
-                    <StyledTableCell align='center'>Length In Queue(Lq)</StyledTableCell> 
-                    <StyledTableCell align='center'>Length In System(Ls)</StyledTableCell>
-                   
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {data?
-                    <StyledTableRow className='px-15'>
-                      <StyledTableCell className='mx-15' align='center'>{data.rho}</StyledTableCell>
-                      <StyledTableCell className='mx-15' align='center'>{data.Wq}</StyledTableCell>
-                      <StyledTableCell className='mx-5' align='center'>{data.Ws}</StyledTableCell>
-                      <StyledTableCell className='mx-5' align='center'>{data.Lq}</StyledTableCell>
-                      <StyledTableCell className='mx-5' align='center'>{data.Ls}</StyledTableCell>
-                    </StyledTableRow>
-                  :
-                    <h1>This is not a queuing models.</h1>
-                  }
-                </TableBody>
-              </Table>
-              </TableContainer>
+              {/* Performance Insights */}
+              <div className="bg-blue-50 p-4 rounded-lg mb-4 max-w-6xl mx-auto">
+                <h3 className="font-semibold text-blue-800 mb-2">Performance Insights</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <span className="text-blue-700">Utilization: </span>
+                    <span className="font-medium">{data.rho}</span>
+                  </div>
+                  <div>
+                    <span className="text-blue-700">Wait Time in Queue: </span>
+                    <span className="font-medium">{data.Wq}</span>
+                  </div>
+                  <div>
+                    <span className="text-blue-700">Wait Time in System: </span>
+                    <span className="font-medium">{data.Ws}</span>
+                  </div>
+                  <div>
+                    <span className="text-blue-700">Length in Queue: </span>
+                    <span className="font-medium">{data.Lq}</span>
+                  </div>
+                  <div>
+                    <span className="text-blue-700">Length in System: </span>
+                    <span className="font-medium">{data.Ls}</span>
+                  </div>
+                  <div>
+                    <span className="text-blue-700">Idle Time: </span>
+                    <span className="font-medium">{data.idle}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Server Utilization Indicator */}
+              <div className="max-w-6xl mx-auto mb-6">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-sm font-medium">Server Utilization: {Number((data.rho * 100).toFixed(2))}%</span>
+                  <span className={`text-sm ${
+                    data.rho > 0.8 ? 'text-red-600' :
+                    data.rho > 0.6 ? 'text-yellow-600' : 'text-green-600'
+                  }`}>
+                    {data.rho > 0.8 ? 'High' : data.rho > 0.6 ? 'Medium' : 'Low'}
+                  </span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                  <div
+                    className={`h-2.5 rounded-full ${
+                      data.rho > 0.8 ? 'bg-red-600' :
+                      data.rho > 0.6 ? 'bg-yellow-500' : 'bg-green-500'
+                    }`}
+                    style={{ width: `${Math.min(Number((data.rho * 100).toFixed(2)), 100)}%` }}
+                  ></div>
+                </div>
+              </div>
+
+              {/* Results Table - Desktop */}
+              <div className="hidden md:block">
+                <TableContainer component={Paper} sx={{ maxWidth: '1200px', margin: 'auto' }}>
+                  <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell align='center'>Utilization</StyledTableCell>
+                      <StyledTableCell align='center'>Wait Time In Queue(Wq)</StyledTableCell>
+                      <StyledTableCell align='center'>Wait Time In System(Ws)</StyledTableCell>
+                      <StyledTableCell align='center'>Length In Queue(Lq)</StyledTableCell>
+                      <StyledTableCell align='center'>Length In System(Ls)</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {data ? (
+                      <StyledTableRow className='px-15'>
+                        <StyledTableCell className='mx-15' align='center'>{data.rho}</StyledTableCell>
+                        <StyledTableCell className='mx-15' align='center'>{data.Wq}</StyledTableCell>
+                        <StyledTableCell className='mx-5' align='center'>{data.Ws}</StyledTableCell>
+                        <StyledTableCell className='mx-5' align='center'>{data.Lq}</StyledTableCell>
+                        <StyledTableCell className='mx-5' align='center'>{data.Ls}</StyledTableCell>
+                      </StyledTableRow>
+                    ) : (
+                      <StyledTableRow>
+                        <StyledTableCell colSpan={5} align="center">No queuing model data available</StyledTableCell>
+                      </StyledTableRow>
+                    )}
+                  </TableBody>
+                </Table>
+                </TableContainer>
+              </div>
+
+              {/* Results Table - Mobile Card Layout */}
+              <div className="md:hidden space-y-3 max-w-6xl mx-auto">
+                <div className="border rounded-lg p-3 bg-white">
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <span className="font-medium">Utilization:</span><span>{data.rho}</span>
+                    <span className="font-medium">Wait Time Q:</span><span>{data.Wq}</span>
+                    <span className="font-medium">Wait Time S:</span><span>{data.Ws}</span>
+                    <span className="font-medium">Length Q:</span><span>{data.Lq}</span>
+                    <span className="font-medium">Length S:</span><span>{data.Ls}</span>
+                  </div>
+                </div>
+              </div>
             </>
         }
       </Box>

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
-import { filledInputClasses } from '@mui/material/FilledInput';
 import { ScatterChart } from '@mui/x-charts/ScatterChart';
-import { InputAdornment, inputBaseClasses, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
+import { Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
 import generateCummulativeProbabitiy from '../../utils/index.js'
 import { useNavigate } from 'react-router-dom';
-// import { ScatterPlot } from '@mui/icons-material';
+// import QueueForm from '../../components/QueueForm';
+
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#c2b38c",
@@ -14,18 +14,13 @@ const StyledTableCell = styled(TableCell)(() => ({
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
-    // border: 1,
   },
 }));
 
 const StyledTableRow = styled(TableRow)(() => ({
   '&:hover': {
-    backgroundColor: "#c2b38c",
-    // Scale
-    // border: 1,
-    // color: "white"
+    backgroundColor: "#f5f5f5",
   },
-  // hide last border
   '&:last-child td, &:last-child th': {
     border: 0,
   },
@@ -41,146 +36,125 @@ const selectPriority = [
     label: 'No',
   },
 ];
+
 const MM1 = () => {
-    const [formdata,setFormData] = useState({});
-    const [data,setData] = useState(null);
+    const [data, setData] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    
-    const handleSubmit = (field,val) => {
-        setFormData({...formdata,
-            [field]:val
-        })
+
+    const handleSubmit = (formData) => {
+        setIsLoading(true);
+        try {
+            const result = generateCummulativeProbabitiy(formData.ArrivalTime, formData.ServiceTime, formData.Priority);
+            setData(result);
+        } catch (error) {
+            console.error('Calculation error:', error);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
-    
-    const Submit = (e) => {
-        e.preventDefault();
-        const result = generateCummulativeProbabitiy(formdata.ArrivalTime,formdata.ServiceTime,formdata.Priority);
-        setData(result);
-        console.log(data);
-        
+    const goToChartPage = () => {
+      navigate('/Graphs', {state: data})
     }
 
-    const goToChartPage = () =>{
-      navigate('/Graphs', {state:data})
+    const handleClear = () => {
+        setData(null);
     }
-    
+
+    const formFields = [
+        {
+            name: 'ArrivalTime',
+            label: 'Arrival Time',
+            type: 'number',
+            required: true,
+            helperText: 'Average arrival rate',
+            unit: 'min'
+        },
+        {
+            name: 'ServiceTime',
+            label: 'Service Time',
+            type: 'number',
+            required: true,
+            helperText: 'Average service time',
+            unit: 'min'
+        },
+        {
+            name: 'Priority',
+            label: 'Priority',
+            type: 'select',
+            options: selectPriority,
+            required: false,
+            helperText: 'Enable priority scheduling'
+        }
+    ];
+
   return (
-    <div className='  w-full h-screen'>
-        <div className="flex flex-col md:flex-row justify-center items-center md:justify-around">
-          <Box component="form" noValidate autoComplete="off" className="w-full md:flex md:py-5 md:px-6">
-            <TextField
-              label="Arrival Time"
-              variant="filled"
-              onChange={(e) => handleSubmit("ArrivalTime", e.target.value)}
-              sx={{
-                marginX: {md:"1vw" ,xs: '4vw'},
-                width:{xs:"90%",md:'30%'},
-                marginY: {md:"1vw" ,xs: '4vw'},
-                
-              }}
-              slotProps={{
-                input: {
-                  endAdornment: (
-                    <InputAdornment
-                      position="end"
-                      sx={{
-                        alignSelf: "flex-end",
-                        opacity: 0,
-                        pointerEvents: "none",
-                        [`.${filledInputClasses.root} &`]: {
-                          borderRadius: "20px",
-                        },
-                        [`[data-shrink=true] ~ .${inputBaseClasses.root} > &`]: {
-                          color: "white",
-                          opacity: 1,
-                        },
-                      }}
-                    >
-                      minute
-                    </InputAdornment>
-                  ),
-                },
-              }}
+    <div className='w-full min-h-screen pb-20'>
+        <div className="w-full max-w-6xl mx-auto p-4">
+            <QueueForm
+                fields={formFields}
+                onSubmit={handleSubmit}
+                submitButtonText="Calculate"
+                isLoading={isLoading}
+                onClear={handleClear}
             />
-
-            {/* Service Time Field */}
-            <TextField
-              label="Service Time"
-              variant="filled"
-              onChange={(e) => handleSubmit("ServiceTime", e.target.value)}
-              sx={{
-                marginX: {md:"1vw" ,xs: '4vw'},
-                width:{xs:"90%",md:'30%'},
-                marginY: {md:"1vw" ,xs: '4vw'},
-              }}
-              slotProps={{
-                input: {
-                  endAdornment: (
-                    <InputAdornment
-                      position="end"
-                      sx={{
-                        alignSelf: "flex-end",
-                        opacity: 0,
-                        pointerEvents: "none",
-                        [`.${filledInputClasses.root} &`]: {
-                          borderRadius: "20px",
-                        },
-                        [`[data-shrink=true] ~ .${inputBaseClasses.root} > &`]: {
-                          opacity: 1,
-                        },
-                      }}
-                    >
-                      minute
-                    </InputAdornment>
-                  ),
-                },
-              }}
-            />
-
-            {/* Priority Field */}
-            <TextField
-              id="outlined-select-currency"
-              select
-              label="Priority"
-              helperText="Please select priority"
-              defaultValue="0"
-              onChange={(e) => handleSubmit("Priority", e.target.value)}
-              sx={{
-                marginX: {md:"1vw" ,xs: '4vw'},
-                width:{xs:"90%",md:'30%'},
-                marginY: {md:"1vw" ,xs: '4vw'},
-              }}
-            >
-              {selectPriority.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-
-            {/* Submit Button */}
-            <div className="flex justify-center ">
-              <button
-                className="w-[90%] md:w-[10vw] md:h-[4.4vw]  md:py-0 py-[3vw] mx-2 my-2 md:ml-7 rounded-md bg-pink-800 text-white active:scale-95 hover:bg-gray-600 text-md"
-                onClick={Submit}
-              >
-                Calculate
-              </button>
-            </div>
-          </Box>
         </div>
 
-        <Box sx={{marginX:{xs:"15px"}, marginY:{xs:"5px"}}}>
+        <Box sx={{ marginX: { xs: "15px" }, marginY: { xs: "5px" } }}>
         {
-          data?.table ?
+          data?.table ? (
             <>
-              <TableContainer component={Paper} sx={{
-                maxWidth: '1200px', margin: 'auto'
-                }}>
-                <div className='md:overflow-hidden  overflow-scroll'>
+              {/* Performance Insights */}
+              <div className="bg-blue-50 p-4 rounded-lg mb-4 max-w-6xl mx-auto">
+                <h3 className="font-semibold text-blue-800 mb-2">Performance Insights</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <span className="text-blue-700">Avg Wait Time: </span>
+                    <span className="font-medium">{data?.avgValues?.avgWT || 0}</span>
+                  </div>
+                  <div>
+                    <span className="text-blue-700">Avg TAT: </span>
+                    <span className="font-medium">{data?.avgValues?.avgTAT || 0}</span>
+                  </div>
+                  <div>
+                    <span className="text-blue-700">System Utilization: </span>
+                    <span className={`font-medium ${
+                      data.serverUtilization > 80 ? 'text-red-600' :
+                      data.serverUtilization > 60 ? 'text-yellow-600' : 'text-green-600'
+                    }`}>
+                      {data.serverUtilization}%
+                    </span>
+                  </div>
+                </div>
+              </div>
 
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
+              {/* Server Utilization Indicator */}
+              <div className="max-w-6xl mx-auto mb-6">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-sm font-medium">Server Utilization: {data.serverUtilization}%</span>
+                  <span className={`text-sm ${
+                    data.serverUtilization > 80 ? 'text-red-600' :
+                    data.serverUtilization > 60 ? 'text-yellow-600' : 'text-green-600'
+                  }`}>
+                    {data.serverUtilization > 80 ? 'High' : data.serverUtilization > 60 ? 'Medium' : 'Low'}
+                  </span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                  <div
+                    className={`h-2.5 rounded-full ${
+                      data.serverUtilization > 80 ? 'bg-red-600' :
+                      data.serverUtilization > 60 ? 'bg-yellow-500' : 'bg-green-500'
+                    }`}
+                    style={{ width: `${Math.min(data.serverUtilization, 100)}%` }}
+                  ></div>
+                </div>
+              </div>
+
+              {/* Results Table - Desktop */}
+              <div className="hidden md:block">
+                <TableContainer component={Paper} sx={{ maxWidth: '1200px', margin: 'auto' }}>
+                  <Table sx={{ minWidth: 700 }} aria-label="customized table">
                     <TableHead>
                       <TableRow>
                         <StyledTableCell align="center">Patient ID</StyledTableCell>
@@ -214,16 +188,40 @@ const MM1 = () => {
                       ))}
                     </TableBody>
                   </Table>
-                </div>
                 </TableContainer>
+              </div>
+
+              {/* Results Table - Mobile Card Layout */}
+              <div className="md:hidden space-y-3 max-w-6xl mx-auto">
+                {data?.table?.map((item, idx) => (
+                  <div key={idx} className="border rounded-lg p-3 bg-white">
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <span className="font-medium">Patient ID:</span><span>{idx + 1}</span>
+                      <span className="font-medium">Arrival:</span><span>{item.arrivalTime}</span>
+                      <span className="font-medium">Service:</span><span>{item.serviceTime}</span>
+                      {item.priority !== undefined && (
+                        <>
+                          <span className="font-medium">Priority:</span><span>{item.priority}</span>
+                        </>
+                      )}
+                      <span className="font-medium">Start:</span><span>{item.startTime}</span>
+                      <span className="font-medium">End:</span><span>{item.endingTime}</span>
+                      <span className="font-medium">TAT:</span><span>{item.turnAroundTime}</span>
+                      <span className="font-medium">Wait:</span><span>{item.waitingTime}</span>
+                      <span className="font-medium">Response:</span><span>{item.responseTime}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
               <div>
                 <h4 style={{
                   margin: '1em auto',
                   textAlign: 'center',
                   fontSize: '22px',
                   fontWeight: 'bold'
-                  }}>
-                      Gantt Chart
+                }}>
+                  Gantt Chart
                 </h4>
                 <div className='flex flex-wrap my-[2vw] mx-[1vw] justify-center'>
                   <div className="flex items-center justify-center flex-wrap">
@@ -239,7 +237,7 @@ const MM1 = () => {
                         return (
                           <React.Fragment key={index}>
                             {/* Gantt Chart Task */}
-                            <div className="md:w-20 w-[23vw] h-16 rounded-sm text-center relative border border-1 py-3 px-2 my-2  border-pink-800 ">
+                            <div className="md:w-20 w-[23vw] h-16 rounded-sm text-center relative border border-1 py-3 px-2 my-2  border-pink-800 bg-white">
                               <p className="text-center font-semibold">P{item?.customer_Id+1}</p>
                               <p className="absolute bottom-1 left-1">{item?.start_Time}</p>
                               <p className="absolute bottom-1 right-1">{item?.end_Time}</p>
@@ -247,70 +245,64 @@ const MM1 = () => {
 
                             {/* Idle Time (if any) */}
                             {idleTime > 0 && (
-                              <div className="md:w-20 w-[23vw] h-16 rounded-sm text-center  flex items-center justify-center relative border border-dashed py-3 px-2 bg-[#065F46] ">
-                                <p className="text-white text-sm">Idle</p>  
+                              <div className="md:w-20 w-[23vw] h-16 rounded-sm text-center  flex items-center justify-center relative border border-dashed py-3 px-2 bg-[#065F46] text-white">
+                                <p className="text-sm">Idle</p>
                               </div>
                               )}
                           </React.Fragment>
                         );
-                      })) : null
+                      })) : (
+                        <div className="text-center text-gray-500 py-8">No gantt chart data available</div>
+                      )
                     }
                   </div>
                 </div>
-                </div>
-                <h4 style={{
-                  margin: '1em auto',
-                  paddingBottom:'15px',
-                  textAlign: 'center',
-                  fontSize: '19px',
-                  fontWeight: 'bold'
-                }}>
-                    Server Utilization: {data.serverUtilization}%
-                </h4>
-                <div className='m-2'>
-                  <h1 style={{
+              </div>
+
+              <div className='m-2'>
+                <h1 style={{
                   margin: '0.2em auto',
                   paddingBottom:'15px',
                   textAlign: 'center',
                   fontSize: '22px',
                   fontWeight: 'bold'
                 }}>Performance Measures</h1>
-                 {
-                  data?.avgValues ?
-                 
-                  <TableContainer component={Paper} sx={{
-                    maxWidth: '1200px', margin: 'auto'
-                    }}>
-                    <div className='md:overflow-hidden  overflow-scroll'>
-
+                {
+                  data?.avgValues ? (
+                    <TableContainer component={Paper} sx={{ maxWidth: '1200px', margin: 'auto' }}>
+                      <div className='md:overflow-hidden overflow-scroll'>
                         <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                        <TableHead>
-                          <TableRow>
-                            <StyledTableCell align="center">Avg TurnAround Time(TAT)</StyledTableCell>
-                            <StyledTableCell align="center">Avg Waiting Time(WT)</StyledTableCell>
-                            <StyledTableCell align="center">Avg Response Time(RST)</StyledTableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          <StyledTableRow >
-                            <StyledTableCell align="center">{data?.avgValues?.avgTAT}</StyledTableCell>
-                            <StyledTableCell align="center">{data?.avgValues?.avgWT}</StyledTableCell>
-                            <StyledTableCell align="center">{data?.avgValues?.avgRT}</StyledTableCell>
-                          </StyledTableRow>
-                        </TableBody>
-                      </Table>
-                    </div>
+                          <TableHead>
+                            <TableRow>
+                              <StyledTableCell align="center">Avg TurnAround Time(TAT)</StyledTableCell>
+                              <StyledTableCell align="center">Avg Waiting Time(WT)</StyledTableCell>
+                              <StyledTableCell align="center">Avg Response Time(RST)</StyledTableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            <StyledTableRow>
+                              <StyledTableCell align="center">{data?.avgValues?.avgTAT}</StyledTableCell>
+                              <StyledTableCell align="center">{data?.avgValues?.avgWT}</StyledTableCell>
+                              <StyledTableCell align="center">{data?.avgValues?.avgRT}</StyledTableCell>
+                            </StyledTableRow>
+                          </TableBody>
+                        </Table>
+                      </div>
                     </TableContainer>
-                    :
-                    null
-                    }
-                </div>
-                <div className='flex justify-center p-2'>
-                  <button className='px-5 py-4 rounded-md bg-pink-800 text-white' onClick={()=>{goToChartPage()}}>Chart Analysis</button>
-                </div>
-            </>
+                  ) : null
+                }
+              </div>
 
-            : null
+              <div className='flex justify-center p-2'>
+                <button
+                  className='px-5 py-4 rounded-md bg-pink-800 text-white hover:bg-pink-700 transition-colors'
+                  onClick={goToChartPage}
+                >
+                  Chart Analysis
+                </button>
+              </div>
+            </>
+          ) : null
         }
       </Box>
     </div>

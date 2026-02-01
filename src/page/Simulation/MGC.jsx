@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import Box from '@mui/material/Box';
-import { filledInputClasses } from '@mui/material/FilledInput';
 import MenuItem from '@mui/material/MenuItem';
-import { InputAdornment, inputBaseClasses, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
+import { Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
 import generateCummulativeProbabitiy from '../../utils/mmcLogic'
 import { useNavigate } from 'react-router-dom';
+// import QueueForm from '../../components/QueueForm';
 
 
 const StyledTableCell = styled(TableCell)(() => ({
@@ -19,7 +19,7 @@ const StyledTableCell = styled(TableCell)(() => ({
 
 const StyledTableRow = styled(TableRow)(() => ({
   '&:hover': {
-    backgroundColor: "#c2b38c"
+    backgroundColor: "#f5f5f5"
   },
   // hide last border
   '&:last-child td, &:last-child th': {
@@ -39,25 +39,64 @@ const selectPriority = [
 ];
 
 const MGC = () => {
-    const [formdata,setFormData] = useState({});
-    const [data,setData] = useState(null);
+    const [data, setData] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleSubmit = (field,val) => {
-        setFormData({...formdata,
-            [field]:val
-        })
+    const handleSubmit = (formData) => {
+        setIsLoading(true);
+        try {
+            const result = generateCummulativeProbabitiy(formData.ArrivalTime, formData.ServiceTime, formData.Servers, formData.Priority);
+            setData(result);
+        } catch (error) {
+            console.error('Calculation error:', error);
+        } finally {
+            setIsLoading(false);
+        }
     }
-    const Submit = (e) => {
-        e.preventDefault();
-        const result = generateCummulativeProbabitiy(formdata.ArrivalTime,formdata.ServiceTime,formdata.Servers,formdata.Priority);
-        setData(result);
+
+    const goToChartPage = () => {
+      navigate('/Graphs', {state: data})
     }
-    console.log(data);
-    
-    const goToChartPage = () =>{
-      navigate('/Graphs', {state:data})
+
+    const handleClear = () => {
+        setData(null);
     }
+
+    const formFields = [
+        {
+            name: 'ArrivalTime',
+            label: 'Arrival Time',
+            type: 'number',
+            required: true,
+            helperText: 'Average arrival time',
+            unit: 'time units'
+        },
+        {
+            name: 'ServiceTime',
+            label: 'Service Time',
+            type: 'number',
+            required: true,
+            helperText: 'Average service time',
+            unit: 'time units'
+        },
+        {
+            name: 'Servers',
+            label: 'Number of Servers',
+            type: 'number',
+            required: true,
+            helperText: 'Total number of servers',
+            unit: 'servers'
+        },
+        {
+            name: 'Priority',
+            label: 'Priority',
+            type: 'select',
+            options: selectPriority,
+            required: false,
+            helperText: 'Enable priority scheduling'
+        }
+    ];
   return (
     <div className='  w-full h-screen'>
         <div className=' flex justify-around items-center py-[2vw] px-[3vw]  '>
