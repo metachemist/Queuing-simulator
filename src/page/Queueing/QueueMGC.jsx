@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import { Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
-// import QueueForm from '../../components/QueueForm';
+import QueueForm from '../../components/QueueForm';
 
 const factorial = (n) => {
   if(n === 0){

@@ -5,7 +5,7 @@ import { ScatterChart } from '@mui/x-charts/ScatterChart';
 import { Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
 import generateCummulativeProbabitiy from '../../utils/index.js'
 import { useNavigate } from 'react-router-dom';
-// import QueueForm from '../../components/QueueForm';
+import QueueForm from '../../components/QueueForm';
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {

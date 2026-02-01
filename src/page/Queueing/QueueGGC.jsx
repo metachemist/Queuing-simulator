@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import { Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
-// import QueueForm from '../../components/QueueForm';
+import QueueForm from '../../components/QueueForm';
 function factorial(n) { 
   if (n === 0) {
       return 1;

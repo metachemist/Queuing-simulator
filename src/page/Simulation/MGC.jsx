@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
 import generateCummulativeProbabitiy from '../../utils/mmcLogic'
 import { useNavigate } from 'react-router-dom';
-// import QueueForm from '../../components/QueueForm';
+import QueueForm from '../../components/QueueForm';
 
 
 const StyledTableCell = styled(TableCell)(() => ({
@@ -98,146 +98,15 @@ const MGC = () => {
         }
     ];
   return (
-    <div className='  w-full h-screen'>
-        <div className=' flex justify-around items-center py-[2vw] px-[3vw]  '>
-            <Box
-                component="form"
-                noValidate
-                autoComplete="off"
-            >
-                <TextField
-                  id="filled-suffix-shrink"
-                  label="Arrival Time"
-                  variant="filled"
-                  sx={{
-                    marginX: {md:"1vw" ,xs: '4vw'},
-                    width:{xs:"90%",md:'20%'},
-                    marginY: {md:"1vw" ,xs: '4vw'},
-                  }}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment
-                        position="start"
-                        sx={{
-                          display: "flex",
-                          alignItems: "start",
-                          justifyContent: "end",
-                          opacity: 0,
-                          pointerEvents: "none",
-                          width: "fit-content",
-                          [`.${filledInputClasses.root} &`]: {
-                            margin: 0,
-                            width:"1vw",
-
-                          },
-                          [`[data-shrink=true] ~ .${inputBaseClasses.root} > &`]: {
-                            opacity: 1,
-                            width:"1vw",
-                          },
-                        }}
-                      >
-                        Number
-                      </InputAdornment>
-                    ),
-                  }}
-                  onChange={(e) => handleSubmit("ArrivalTime", e.target.value)}
-                />
-                <TextField
-                  id="filled-suffix-shrink"
-                  label="Service Time"
-                  variant="filled"
-                  sx={{
-                    marginX: {md:"1vw" ,xs: '4vw'},
-                    width:{xs:"90%",md:'20%'},
-                    marginY: {md:"1vw" ,xs: '4vw'},
-                  }}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment
-                        position="start"
-                        sx={{
-                          display: "flex",
-                          alignItems: "start",
-                          justifyContent: "end",
-                          opacity: 0,
-                          pointerEvents: "none",
-                          width: "fit-content",
-                          [`.${filledInputClasses.root} &`]: {
-                            margin: 0,
-                            width:"1vw",
-
-                          },
-                          [`[data-shrink=true] ~ .${inputBaseClasses.root} > &`]: {
-                            opacity: 1,
-                            width:"1vw",
-                          },
-                        }}
-                      >
-                        Number
-                      </InputAdornment>
-                    ),
-                  }}
-                  onChange={(e) => handleSubmit("ServiceTime", e.target.value)}
-                />
-                <TextField
-                  id="filled-suffix-shrink"
-                  label="Number of Server"
-                  variant="filled"
-                  sx={{
-                    marginX: {md:"1vw" ,xs: '4vw'},
-                    width:{xs:"90%",md:'20%'},
-                    marginY: {md:"1vw" ,xs: '4vw'},
-                  }}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment
-                        position="start"
-                        sx={{
-                          display: "flex",
-                          alignItems: "start",
-                          justifyContent: "end",
-                          opacity: 0,
-                          pointerEvents: "none",
-                          width: "fit-content",
-                          [`.${filledInputClasses.root} &`]: {
-                            margin: 0,
-                            width:"1vw",
-
-                          },
-                          [`[data-shrink=true] ~ .${inputBaseClasses.root} > &`]: {
-                            opacity: 1,
-                            width:"1vw",
-                          },
-                        }}
-                      >
-                        Number
-                      </InputAdornment>
-                    ),
-                  }}
-                  onChange={(e) => handleSubmit("Servers", e.target.value)}
-                />
-
-                <TextField
-                  id="outlined-select-currency"
-                  select
-                  label="Priority"
-                  sx={{
-                    marginX: {md:"1vw" ,xs: '4vw'},
-                    width:{xs:"90%",md:'14%'},
-                    marginY: {md:"1vw" ,xs: '4vw'},
-                  }}
-                  defaultValue="0"
-                  onChange={(e)=>handleSubmit("Priority",e.target.value)}
-                  helperText="Please select priority"
-                >
-                  {selectPriority.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-               </TextField>
-                <button className='md:w-[10vw] w-full md:h-[4.4vw] py-4 px-2 md:ml-7 md:mx-[2vw] md:my-[1vw] rounded-md bg-pink-800 text-white active:scale-95 hover:bg-gray-600 text-md' onClick={Submit}>Calculate</button>
-            </Box>
+    <div className='w-full min-h-screen pb-20'>
+        <div className="w-full max-w-6xl mx-auto p-4">
+            <QueueForm
+                fields={formFields}
+                onSubmit={handleSubmit}
+                submitButtonText="Calculate"
+                isLoading={isLoading}
+                onClear={handleClear}
+            />
         </div>
         <Box className="mx-3">
         {
