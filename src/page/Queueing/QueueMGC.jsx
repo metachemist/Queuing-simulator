@@ -145,7 +145,7 @@ const QueueMGC = () => {
           (Object.keys(data).length === 1) ?
            <div className='flex items-center justify-center'>
             <div className='border-1 border p-2 rounded-lg border-pink-200 max-w-md mx-auto'>
-            <h1 className='text-center font-mono font-bold text-xl text-pink-950'>{`Rho (${data.rho}) is greater than 1. It's not a stable model.`}</h1>
+            <h1 className='text-center font-sans font-bold text-xl text-pink-950'>{`Rho (${data.rho}) is greater than 1. It's not a stable model.`}</h1>
             </div>
            </div>
           :

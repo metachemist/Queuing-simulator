@@ -14,6 +14,9 @@ export default {
         },
         accent: '#ffed4a',
       },
+      fontFamily: {
+        sans: ['Open Sans', 'sans-serif'],
+      },
     },
   },
   plugins: [],

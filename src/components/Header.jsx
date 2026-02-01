@@ -50,10 +50,10 @@ const Header = () => {
   // const breadcrumbs = generateBreadcrumbs();
 
   return (
-    <div className='font-mono bg-cream sticky w-full flex flex-col md:flex-row justify-between items-start md:items-center md:h-16 h-full md:px-[3vw] md:py-[1vw] py-3 px-3 border border-b-2 border-cream'>
+    <div className='font-sans bg-cream sticky w-full flex flex-col md:flex-row justify-between items-start md:items-center md:h-16 h-full md:px-[3vw] md:py-[1vw] py-3 px-3 border border-b-2 border-cream'>
       <div className='flex items-center w-full md:w-auto'>
         <Link to="/">
-          <h1 className='md:text-3xl text-2xl md:font-bold font-extrabold text-pink-900 hover:translate-x-1 cursor-pointer'>
+          <h1 className='md:text-3xl text-2xl md:font-bold font-extrabold text-pink-900 cursor-pointer'>
             Simulator of Emergency Ward
           </h1>
         </Link>
